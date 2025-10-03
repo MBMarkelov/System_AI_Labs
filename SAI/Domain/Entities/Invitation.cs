@@ -28,5 +28,8 @@ namespace SAI.Domain.Entities
         }
 
         public static Invitation CreateForOrganization(Guid inviterId, Guid inviteeId, Guid organizationId) => new(inviterId, inviteeId, organizationId, null);
+        public static Invitation CreateForEvent(Guid inviterId, Guid inviteeId, Guid eventId) => new(inviterId, inviteeId, null, eventId);
+        public void AcceptInvite() => Status = InviteStatus.Accepted;
+        public void DeclineInvite() => Status = InviteStatus.Declined;
     }
 }
