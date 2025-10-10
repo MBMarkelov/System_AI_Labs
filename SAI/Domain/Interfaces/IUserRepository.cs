@@ -1,4 +1,5 @@
-﻿using SAI.Domain.ValueObjects;
+﻿using SAI.Domain.Entities;
+using SAI.Domain.ValueObjects;
 using System;
 using System.Collections.Generic;
 using System.Linq;

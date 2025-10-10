@@ -5,9 +5,9 @@ using System.Text;
 using System.Threading.Tasks;
 using SAI.Domain.ValueObjects;
 
-namespace SAI.Domain.Interfaces
+namespace SAI.Domain.Entities
 {
-    public abstract class User
+    public class User
     {
         public Guid Id { get; protected set; } = Guid.NewGuid();
         public string FullName { get; protected set; }
@@ -15,11 +15,15 @@ namespace SAI.Domain.Interfaces
         public PhoneNumber PhoneNumber { get; protected set; }
         public TelegramNickName TelegramNickName { get; protected set; }
 
-        private List<Address> _addresses = new();
-        public IReadOnlyList<Address> Addresses => _addresses.AsReadOnly(); 
+        private readonly List<Address> _addresses = [];
+        private readonly List<Organization> _organizations = [];
+        private readonly List<Note> _notes = [];
+        public IReadOnlyList<Address> Addresses => _addresses.AsReadOnly();
+        public IReadOnlyList<Organization> Organizations => _organizations.AsReadOnly();
+        public IReadOnlyList<Note> Notes => _notes.AsReadOnly();
 
 
-        protected User(string fullName, Email email, PhoneNumber phoneNumber, TelegramNickName telegramNickName)
+        public User(string fullName, Email email, PhoneNumber phoneNumber, TelegramNickName telegramNickName)
         {
             FullName = fullName ?? throw new ArgumentNullException(nameof(fullName));
             Email = email ?? throw new ArgumentNullException(nameof(email));
@@ -39,7 +43,5 @@ namespace SAI.Domain.Interfaces
         public  TelegramNickName ChangeTelegramNickName(TelegramNickName NewTelegramNickName) => TelegramNickName = NewTelegramNickName;
         public  void AddAddress(Address NewAddress) => _addresses.Add(NewAddress);
         public  void RemoveAddress(int index) => _addresses.RemoveAt(index);
-
-
     }    
 }

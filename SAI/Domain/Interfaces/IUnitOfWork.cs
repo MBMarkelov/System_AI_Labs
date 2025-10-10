@@ -4,10 +4,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace SAI.Domain.Enums
+namespace SAI.Domain.Interfaces
 {
-    enum userRole
+    public interface IUnitOfWork
     {
-        Organization, Individual
+        Task<Guid> SaveChangesAsync();
     }
 }

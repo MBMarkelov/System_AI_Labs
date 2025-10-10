@@ -8,13 +8,19 @@ using System.Threading.Tasks;
 
 namespace SAI.Domain.Entities
 {
-    internal class Organization : User
+    public class Organization
     {
-        private readonly List<Individual> _members;
-        public IReadOnlyList<Individual> Members => _members.AsReadOnly();
-        public Organization(string fullName, Email email, PhoneNumber phoneNumber, TelegramNickName telegramNickName)
-                         : base(fullName, email, phoneNumber, telegramNickName) { }
-        public void AddMember(Individual member) => _members.Add(member);
+        public Guid OwnerUserId { get; private set; }
+        
+        private readonly List<User> _members;
+        public IReadOnlyList<User> Members => _members.AsReadOnly();
+        
+        public Organization(List<User> members) 
+        {
+            _members = members;    
+        }
+        public void AddMember(User member) => _members.Add(member);
         public void RemoveMember(int index) => _members.RemoveAt(index);
+
     }
 }

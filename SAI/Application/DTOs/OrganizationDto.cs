@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace SAI.Infrastructure.Repository
+namespace SAI.Application.DTOs
 {
-    internal class InMemoryUserRepository
+    internal class OrganizationDto
     {
     }
 }
