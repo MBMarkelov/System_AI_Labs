@@ -49,4 +49,4 @@ namespace SAI.Infrastructure.Models
         public ICollection<NoteEntity> Notes { get; set; } = new List<NoteEntity>();
     }
 }
-}
+

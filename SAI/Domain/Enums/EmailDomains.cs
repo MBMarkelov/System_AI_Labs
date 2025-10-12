@@ -38,28 +38,18 @@ namespace SAI.Domain.Enums
         cn,
         jp,
 
-        // Образовательные
         edu,
         edu_ru,
         edu_ua,
-
-        // Правительственные
         gov,
         gov_ru,
         mil,
-
-        // Региональные
         moscow,
         spb_ru,
-        uk_com,
-
-        // Специализированные
         io,
         ai,
         dev,
         app,
-
-        // Прочие
         custom,
         unknown
     }
