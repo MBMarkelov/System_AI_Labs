@@ -4,10 +4,9 @@ using Avalonia.Markup.Xaml;
 
 namespace AvaloniaUI;
 
-public partial class Window1 : Window
+public partial class RegistrationWindow : Window
 {
-    public Window1()
-    {
-        InitializeComponent();
-    }
+    public RegistrationWindow() => InitializeComponent();
+    private void InitializeComponent() => AvaloniaXamlLoader.Load(this);
+
 }

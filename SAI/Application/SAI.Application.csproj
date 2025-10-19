@@ -7,12 +7,18 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="User\**" />
+    <EmbeddedResource Remove="User\**" />
+    <None Remove="User\**" />
+  </ItemGroup>
+
+  <ItemGroup>
     <Folder Include="Common\" />
     <Folder Include="Interfaces\" />
-    <Folder Include="Services\" />
-    <Folder Include="User\Command\" />
-    <Folder Include="User\Queries\" />
-    <Folder Include="User\Dtos\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Domain\SAI.Domain.csproj" />
   </ItemGroup>
 
 </Project>

@@ -3,11 +3,22 @@
     <TargetFramework>net8.0</TargetFramework>
     <Nullable>enable</Nullable>
     <LangVersion>latest</LangVersion>
-    <AvaloniaUseCompiledBindingsByDefault>true</AvaloniaUseCompiledBindingsByDefault>
+	<Charset>UTF-8</Charset>
+    <DefaultItemEncoding>UTF-8</DefaultItemEncoding>
+	<AvaloniaUseCompiledBindingsByDefault>true</AvaloniaUseCompiledBindingsByDefault>
   </PropertyGroup>
 
   <ItemGroup>
     <AvaloniaResource Include="Assets\**" />
+	  <Compile Update="**\*.cs">
+		  <Encoding>UTF-8</Encoding>
+	  </Compile>
+	  <AvaloniaResource Update="**\*.axaml">
+		  <Encoding>UTF-8</Encoding>
+	  </AvaloniaResource>
+	  <EmbeddedResource Update="**\*.resx">
+		  <Encoding>UTF-8</Encoding>
+	  </EmbeddedResource>
   </ItemGroup>
 
   <ItemGroup>
@@ -17,5 +28,10 @@
     <PackageReference Include="Avalonia.ReactiveUI" Version="$(AvaloniaVersion)" />
     <!--Condition below is needed to remove Avalonia.Diagnostics package from build output in Release configuration.-->
     <PackageReference Condition="'$(Configuration)' == 'Debug'" Include="Avalonia.Diagnostics" Version="$(AvaloniaVersion)" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Application\SAI.Application.csproj" />
+    <ProjectReference Include="..\SAI.Infrastructure\SAI.Infrastructure.csproj" />
   </ItemGroup>
 </Project>

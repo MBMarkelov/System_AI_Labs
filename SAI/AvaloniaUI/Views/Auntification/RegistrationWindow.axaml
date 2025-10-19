@@ -2,8 +2,25 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:vm="clr-namespace:AvaloniaUI.ViewModels.AuntificationModel;assembly=AvaloniaUI"
+        x:DataType="vm:RegistrationViewModel"
         mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
-        x:Class="AvaloniaUI.Window1"
-        Title="Window1">
-  Welcome to Avalonia!
+        x:Class="AvaloniaUI.RegistrationWindow"
+        Title="Регистрация пользователя" Width="400" Height="500">
+        <ScrollViewer>
+            <StackPanel Margin="20" Spacing="8">
+                <TextBox Watermark="ФИО" Text="{Binding User.FullName}"/>
+                <TextBox Watermark="Почта" Text="{Binding User.Email}"/>
+                <TextBox Watermark="Телефон" Text="{Binding User.PhoneNumber}"/>
+                <TextBox Watermark="Telegram" Text="{Binding User.Telegram}"/>
+                <TextBox Watermark="Дом" Text="{Binding User.Address.House}"/>
+                <TextBox Watermark="Улица" Text="{Binding User.Address.Street}"/>
+                <TextBox Watermark="Город" Text="{Binding User.Address.City}"/>
+                <TextBox Watermark="Район" Text="{Binding User.Address.District}"/>
+                <TextBox Watermark="Область" Text="{Binding User.Address.Region}"/>
+                <TextBox Watermark="Почтовый индекс" Text="{Binding User.Address.PostalIndex}"/>
+                <TextBox Watermark="Страна" Text="{Binding User.Address.Country}"/>
+                <Button Content="Зарегистрироваться" Command="{Binding RegisterCommand}"/>
+            </StackPanel>
+        </ScrollViewer>
 </Window>

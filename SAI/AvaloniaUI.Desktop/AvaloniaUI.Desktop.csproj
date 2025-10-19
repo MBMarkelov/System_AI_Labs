@@ -6,14 +6,28 @@
     <TargetFramework>net8.0</TargetFramework>
     <Nullable>enable</Nullable>
     <BuiltInComInteropSupport>true</BuiltInComInteropSupport>
-    <ApplicationManifest>app.manifest</ApplicationManifest>
+	<AvaloniaUseCompiledBindingsByDefault>true</AvaloniaUseCompiledBindingsByDefault>
+	<ApplicationManifest>app.manifest</ApplicationManifest>
+	<Charset>UTF-8</Charset>
+	<DefaultItemEncoding>UTF-8</DefaultItemEncoding>
   </PropertyGroup>
 
   <ItemGroup>
     <PackageReference Include="Avalonia.Desktop" Version="$(AvaloniaVersion)" />
+    <AvaloniaResource Include="**\*.axaml" />
+	  <Compile Update="**\*.cs">
+		  <Encoding>UTF-8</Encoding>
+	  </Compile>
+	  <AvaloniaResource Update="**\*.axaml">
+		  <Encoding>UTF-8</Encoding>
+	  </AvaloniaResource>
+	  <EmbeddedResource Update="**\*.resx">
+		  <Encoding>UTF-8</Encoding>
+	  </EmbeddedResource>
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\Application\SAI.Application.csproj" />
     <ProjectReference Include="..\AvaloniaUI\AvaloniaUI.csproj" />
   </ItemGroup>
 </Project>
