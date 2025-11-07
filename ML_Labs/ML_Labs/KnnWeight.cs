@@ -6,11 +6,12 @@ using System.Threading.Tasks;
 
 namespace ML_Labs
 {
-    public class KnnWeightClassifier
+    public class KnnWeightClassifier : IKnnClassifier
     {
-        private readonly int k;
+        private readonly int k = 3;
         private readonly List<(double[] Features, string Label)> trainingData = new();
 
+        public KnnWeightClassifier() { }
         public KnnWeightClassifier(int k)
         {
             if (k <= 0) throw new ArgumentException("k должно быть больше 0", nameof(k));

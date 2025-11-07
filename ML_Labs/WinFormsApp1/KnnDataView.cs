@@ -195,5 +195,53 @@ namespace WinFormsApp1
             sp.MarkerLineColor = borderColor;
             sp.LineStyle = ScottPlot.LineStyle.None;
         }
+        
+        
+        public static void PlotStolpResult(
+            List<(double[] Features, string Label)> fullData,
+            List<(double[] Features, string Label)> prototypes,
+            string title = "STOLP: эталоны и удалённые точки")
+        {
+            var plt = new ScottPlot.Plot();
+            plt.Title(title);
+            plt.XLabel("Средний балл");
+            plt.YLabel("Количество пропусков");
+
+            // 1. Все данные (фон, полупрозрачные)
+            foreach (var label in new[] { "Отл", "Хор", "удовл", "неуд" })
+            {
+                var points = fullData.Where(d => d.Label == label).ToList();
+                if (points.Count == 0) continue;
+                var xs = points.Select(d => d.Features[0]).ToArray();
+                var ys = points.Select(d => d.Features[1]).ToArray();
+                var sp = plt.Add.Scatter(xs, ys);
+                sp.Color = GetColor(label).WithAlpha(50);
+                sp.MarkerSize = 6;
+                sp.LineStyle = ScottPlot.LineStyle.None;
+                sp.LegendText = $"Фон: {label}";
+            }
+
+            // 2. Эталоны (большие, яркие)
+            foreach (var p in prototypes)
+            {
+                var sp = plt.Add.Scatter(p.Features[0], p.Features[1]);
+                sp.Color = GetColor(p.Label);
+                sp.MarkerSize = 14;
+                sp.MarkerShape = ScottPlot.MarkerShape.Asterisk;
+                sp.LegendText = $"Эталон: {p.Label}";
+            }
+
+            plt.ShowLegend();
+            ShowPlotInWindow(plt, title);
+        }
+
+        private static ScottPlot.Color GetColor(string label) => label switch
+        {
+            "Отл" => ScottPlot.Colors.Green,
+            "Хор" => ScottPlot.Colors.Blue,
+            "удовл" => ScottPlot.Colors.Orange,
+            "неуд" => ScottPlot.Colors.Red,
+            _ => ScottPlot.Colors.Gray
+        };
     }
 }

@@ -11,13 +11,14 @@ namespace ML_Labs
         Uniform
     }
 
-    public class KernelKnnClassifier
+    public class KernelKnnClassifier : IKnnClassifier
     {
-        private readonly int k;
-        private readonly double bandwidth; // h
-        private readonly KernelType kernel;
+        private readonly int k = 3;
+        private readonly double bandwidth = 1.0; // h
+        private readonly KernelType kernel = KernelType.Gaussian;
         private readonly List<(double[] Features, string Label)> trainingData = new();
 
+        public KernelKnnClassifier(){}
         public KernelKnnClassifier(int k, double bandwidth = 1.0, KernelType kernel = KernelType.Gaussian)
         {
             if (k <= 0) throw new ArgumentException("k > 0");
