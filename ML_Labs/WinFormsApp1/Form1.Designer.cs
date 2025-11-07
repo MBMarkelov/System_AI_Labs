@@ -35,6 +35,7 @@
             Stolp_Knn_Core_Button = new Button();
             Stolp_Knn_Weight_button = new Button();
             DataSelector = new ComboBox();
+            density_button = new Button();
             SuspendLayout();
             // 
             // knn_button
@@ -99,24 +100,30 @@
             // DataSelector
             // 
             DataSelector.FormattingEnabled = true;
+            DataSelector.Items.AddRange(new object[] { "Рандом", "Рандом фиксированный", "Пресет_1", "Пресет_2", "Другое..." });
             DataSelector.Location = new Point(299, 18);
             DataSelector.Name = "DataSelector";
             DataSelector.Size = new Size(121, 23);
             DataSelector.TabIndex = 0;
             DataSelector.Text = "Выберете датасет";
             DataSelector.SelectedIndexChanged += DataSelector_SelectedIndexChanged;
-            DataSelector.Items.AddRange(new object[] {
-                "Рандом",
-                "Рандом фиксированный",
-                "Пресет_1",
-                "Пресет_2",
-                "Другое..."});
+            // 
+            // density_button
+            // 
+            density_button.Location = new Point(299, 89);
+            density_button.Name = "density_button";
+            density_button.Size = new Size(121, 47);
+            density_button.TabIndex = 5;
+            density_button.Text = "ядерное сглаживание";
+            density_button.UseVisualStyleBackColor = true;
+            density_button.Click += density_button_Click;
             // 
             // Form1
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(432, 250);
+            Controls.Add(density_button);
             Controls.Add(DataSelector);
             Controls.Add(Stolp_Knn_Weight_button);
             Controls.Add(Stolp_Knn_Core_Button);
@@ -139,5 +146,6 @@
         private Button Stolp_Knn_Core_Button;
         private Button Stolp_Knn_Weight_button;
         private ComboBox DataSelector;
+        private Button density_button;
     }
 }

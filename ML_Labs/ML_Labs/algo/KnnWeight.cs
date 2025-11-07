@@ -32,7 +32,7 @@ namespace ML_Labs
                 .Select(t =>
                 {
                     var d = CalculateDistance(features, t.Features);
-                    return new { Distance = d, Label = t.Label };
+                    return new { Distance = d, t.Label };
                 })
                 .OrderBy(t => t.Distance)
                 .Take(k);

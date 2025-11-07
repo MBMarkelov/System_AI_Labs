@@ -1,9 +1,10 @@
-﻿using System;
+﻿using ML_Labs;
+using ScottPlot;
+using ScottPlot.WinForms;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Forms;
-using ScottPlot;
-using ScottPlot.WinForms;
 
 namespace WinFormsApp1
 {
@@ -88,6 +89,52 @@ namespace WinFormsApp1
             // Отображаем в окне
             ShowPlotInWindow(plt, title);
         }
+        public static void PlotMap(
+            List<(double[] Features, string Label)> trainingData,
+            List<(double[] Features, string Label)> testData,
+            List<string> predictions,
+            List<(double[] Features, string Label)> prototypes,
+            string title = "STOLP: эталоны и удалённые точки")
+        {
+            var pointsForKde = trainingData.Select(d => d.Features).ToList();
+            var kde = new KernelDensity2D(pointsForKde, bandwidth: 0.7);
+            var (density, minX, maxX, minY, maxY) = kde.GetHeatmap(width: 140, height: 100);
+
+            var plt = new ScottPlot.Plot();
+            plt.Title("KNN + STOLP + Ядерное сглаживание (KDE фон)");
+            plt.XLabel("Средний балл");
+            plt.YLabel("Количество пропусков");
+
+            var hm = plt.Add.Heatmap(density);
+            hm.Rectangle = new CoordinateRect(minX, maxX, minY, maxY);
+            hm.FlipVertically = true;
+
+            foreach (var p in prototypes)
+            {
+                var sp = plt.Add.Scatter(p.Features[0], p.Features[1]);
+                sp.Color = GetColor(p.Label);
+                sp.MarkerSize = 12;
+                sp.MarkerShape = ScottPlot.MarkerShape.Eks;
+            }
+
+            for (int i = 0; i < testData.Count; i++)
+            {
+                var point = testData[i];
+                bool isCorrect = point.Label == predictions[i];
+
+                var sp = plt.Add.Scatter(point.Features[0], point.Features[1]);
+                sp.MarkerSize = 10;
+                sp.MarkerShape = isCorrect ? ScottPlot.MarkerShape.FilledCircle : ScottPlot.MarkerShape.OpenCircle;
+                sp.Color = isCorrect ? ScottPlot.Colors.Lime : ScottPlot.Colors.Red;
+                sp.MarkerLineWidth = 3;
+                sp.LegendText = isCorrect ? "Тест: верно" : "Тест: ошибка";
+            }
+
+            plt.Axes.SetLimits(minX, maxX, minY, maxY);
+
+            ShowPlotInWindow(plt, "KNN + KDE + STOLP");
+        }
+            
 
         // Метод для отображения графика в отдельном окне
         private static void ShowPlotInWindow(ScottPlot.Plot plt, string title)
@@ -106,7 +153,7 @@ namespace WinFormsApp1
             formsPlot.Reset(plt); // Передаём готовый Plot
             formsPlot.Refresh();  // Обновляем отрисовку
             form.Controls.Add(formsPlot);
-            form.ShowDialog();
+            form.Show();
         }
         public static void PlotEvaluation(
             List<(double[] Features, string Label)> trainingData,

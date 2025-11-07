@@ -1,8 +1,12 @@
 ﻿using ML_Labs;
+using ScottPlot;
 namespace WinFormsApp1
 {
     public partial class Form1 : Form
     {
+        private List<(double[] Features, string Label)> trainingData;
+        private List<(double[] Features, string Label)> testData;
+        private string DataMode;
         public Form1()
         {
             InitializeComponent();
@@ -17,56 +21,49 @@ namespace WinFormsApp1
 
         private void knn_button_Click(object sender, EventArgs e)
         {
+            if (DataMode == "Рандом")
+            {
+                trainingData = StudentDataGenerator.Generate(200);
+                testData = StudentDataGenerator.Generate(50);
+            }
             var knn = new KnnClassifier(k: 3);
-            var trainingData = StudentDataGenerator.Generate(100);
             foreach (var (features, label) in trainingData)
                 knn.Train(features, label);
-
-            var testData = StudentDataGenerator.Generate(20);
             var predictions = testData.Select(t => knn.Classify(t.Features)).ToList();
-
             double accuracy = knn.Evaluate(testData);
-            Console.WriteLine($"Точность: {accuracy:P2}");
-
-            // === ВИЗУАЛИЗАЦИЯ ОЦЕНКИ ===
             KnnDataView.PlotEvaluation(trainingData, testData, predictions, accuracy);
-
-            // Пример одного студента
-            double[] student = [4.2, 8];
-            string predicted = knn.Classify(student);
-            Console.WriteLine($"Студент [{student[0]}, {student[1]}] → {predicted}");
         }
 
         private void knn_weight_button_Click(object sender, EventArgs e)
         {
+            if (DataMode == "Рандом")
+            {
+                trainingData = StudentDataGenerator.Generate(200);
+                testData = StudentDataGenerator.Generate(50);
+            }
             var knn = new KnnWeightClassifier(k: 3);
-            var trainingData = StudentDataGenerator.Generate(200);
             foreach (var (features, label) in trainingData)
                 knn.Train(features, label);
 
-            var testData = StudentDataGenerator.Generate(30);
             var predictions = testData.Select(t => knn.Classify(t.Features)).ToList();
 
             double accuracy = knn.Evaluate(testData);
             Console.WriteLine($"Точность: {accuracy:P2}");
 
-            // === ВИЗУАЛИЗАЦИЯ ОЦЕНКИ ===
             KnnDataView.PlotEvaluation(trainingData, testData, predictions, accuracy);
-
-            // Пример одного студента
-            double[] student = [4.2, 8];
-            string predicted = knn.Classify(student);
-            Console.WriteLine($"Студент [{student[0]}, {student[1]}] → {predicted}");
         }
 
         private void knn_Core_button_Click(object sender, EventArgs e)
         {
+            if (DataMode == "Рандом")
+            {
+                trainingData = StudentDataGenerator.Generate(200);
+                testData = StudentDataGenerator.Generate(50);
+            }
             var knn = new KernelKnnClassifier(k: 3);
-            var trainingData = StudentDataGenerator.Generate(200);
             foreach (var (features, label) in trainingData)
                 knn.Train(features, label);
 
-            var testData = StudentDataGenerator.Generate(30);
             var predictions = testData.Select(t => knn.Classify(t.Features)).ToList();
 
             double accuracy = knn.Evaluate(testData);
@@ -75,8 +72,12 @@ namespace WinFormsApp1
 
         private void Stolp_Knn_button_Click(object sender, EventArgs e)
         {
-            var trainingData = StudentDataGenerator.Generate(200);
-            var testData = StudentDataGenerator.Generate(50);
+            if (DataMode == "Рандом")
+            {
+                trainingData = StudentDataGenerator.Generate(200);
+                testData = StudentDataGenerator.Generate(50);
+            }
+
             var knnStolp = new StolpKnn<KnnClassifier>(prototypesPerClass: 4);
             knnStolp.Train(trainingData);
             double accuracy = knnStolp.Evaluate(testData);
@@ -87,8 +88,11 @@ namespace WinFormsApp1
 
         private void Stolp_Knn_Core_Button_Click(object sender, EventArgs e)
         {
-            var trainingData = StudentDataGenerator.Generate(200);
-            var testData = StudentDataGenerator.Generate(50);
+            if (DataMode == "Рандом")
+            {
+                trainingData = StudentDataGenerator.Generate(200);
+                testData = StudentDataGenerator.Generate(50);
+            }
             var KernelknnStolp = new StolpKnn<KernelKnnClassifier>(prototypesPerClass: 4);
             KernelknnStolp.Train(trainingData);
             double accuracy = KernelknnStolp.Evaluate(testData);
@@ -100,8 +104,12 @@ namespace WinFormsApp1
 
         private void Stolp_Knn_Weight_button_Click(object sender, EventArgs e)
         {
-            var trainingData = StudentDataGenerator.Generate(200);
-            var testData = StudentDataGenerator.Generate(50);
+            if (DataMode == "Рандом")
+            {
+                trainingData = StudentDataGenerator.Generate(200);
+                testData = StudentDataGenerator.Generate(50);
+            }
+
             var knnWeightStolp = new StolpKnn<KnnWeightClassifier>(prototypesPerClass: 4);
             knnWeightStolp.Train(trainingData);
             double accuracy = knnWeightStolp.Evaluate(testData);
@@ -114,32 +122,48 @@ namespace WinFormsApp1
         {
             if (DataSelector.SelectedItem != null)
             {
-                string selectedValue = DataSelector.SelectedItem.ToString();
+                DataMode = DataSelector.SelectedItem.ToString();
 
-                switch (selectedValue)
+                switch (DataMode)
                 {
                     case "Рандом":
-                        // Код для рандом
                         break;
                     case "Рандом фиксированный":
-                        // Код для фиксированного рандома
-                        MessageBox.Show("Выбран режим: Рандом фиксированный");
+                        trainingData = StudentDataGenerator.Generate(200);
+                        testData = StudentDataGenerator.Generate(50);
                         break;
                     case "Пресет_1":
-                        // Код для пресета 1
-                        MessageBox.Show("Выбран режим: Пресет_1");
+                        trainingData = Preset_1.TrainingData;
+                        testData = Preset_1.TestData;
                         break;
                     case "Пресет_2":
-                        // Код для пресета 2
-                        MessageBox.Show("Выбран режим: Пресет_2");
+                        trainingData = Preset_2.TrainingData;
+                        testData = Preset_2.TestData;
                         break;
                     case "Другое...":
                         // Код для открытия дополнительных опций
-                        MessageBox.Show("Открыть дополнительные настройки...");
                         break;
 
                 }
             }
+        }
+
+        private void density_button_Click(object sender, EventArgs e)
+        {
+            if (DataMode == "Рандом")
+            {
+                trainingData = StudentDataGenerator.Generate(200);
+                testData = StudentDataGenerator.Generate(50);
+            }
+
+            var stolpKnn = new StolpKnn<KernelKnnClassifier>(prototypesPerClass: 5);
+            stolpKnn.Train(trainingData);
+
+            var prototypes = stolpKnn.GetPrototypes();
+            var predictions = testData.Select(t => stolpKnn.Classify(t.Features)).ToList();
+            
+            KnnDataView.PlotMap(trainingData,testData,predictions,prototypes);
+
         }
     }
 }
