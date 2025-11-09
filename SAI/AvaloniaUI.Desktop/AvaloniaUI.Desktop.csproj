@@ -10,6 +10,13 @@
 	<ApplicationManifest>app.manifest</ApplicationManifest>
 	<Charset>UTF-8</Charset>
 	<DefaultItemEncoding>UTF-8</DefaultItemEncoding>
+=======
+	<AvaloniaUseCompiledBindingsByDefault>true</AvaloniaUseCompiledBindingsByDefault>
+	<ApplicationManifest>app.manifest</ApplicationManifest>
+	<Charset>UTF-8</Charset>
+	<DefaultItemEncoding>UTF-8</DefaultItemEncoding>
+	<Utf8Output>true</Utf8Output>
+>>>>>>> Stashed changes
   </PropertyGroup>
 
   <ItemGroup>
@@ -27,7 +34,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Application\SAI.Application.csproj" />
     <ProjectReference Include="..\AvaloniaUI\AvaloniaUI.csproj" />
   </ItemGroup>
 </Project>

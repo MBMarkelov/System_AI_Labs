@@ -1,8 +1,12 @@
 ﻿using Avalonia;
 using Avalonia.ReactiveUI;
+<<<<<<< Updated upstream
+=======
 using System;
 using System.Globalization;
+using System.Text;
 using System.Threading;
+>>>>>>> Stashed changes
 
 namespace AvaloniaUI.Desktop;
 

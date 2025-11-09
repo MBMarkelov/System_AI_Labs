@@ -4,13 +4,20 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:vm="clr-namespace:AvaloniaUI.ViewModels.AuntificationModel;assembly=AvaloniaUI"
         mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+<<<<<<< Updated upstream
+        x:Class="AvaloniaUI.Window1"
+        Title="Window1">
+  Welcome to Avalonia!
+</Window>
+=======
         x:Class="AvaloniaUI.LoginWindow"
         x:DataType="vm:LoginViewModel"
-        Title="Авторизация пользователя" Width="300" Height="200">
+        Title="Authorization user" Width="300" Height="200">
     <StackPanel Margin="20" Spacing="10">
-        <TextBlock Text="Авторизация пользователя" FontSize="16" HorizontalAlignment="Center"/>
-        <TextBox Watermark="Номер телефона" Text="{Binding PhoneNumber}"/>
-        <Button Content="Войти" Command="{Binding LoginCommand}"/>
+        <TextBlock Text="Authorization user" FontSize="16" HorizontalAlignment="Center"/>
+        <TextBox Watermark="Phone number" Text="{Binding PhoneNumber}"/>
+        <Button Content="Sing in" Command="{Binding LoginCommand}"/>
         <TextBlock Text="{Binding ErrorMessage}" Foreground="Red"/>
     </StackPanel>
 </Window>
+>>>>>>> Stashed changes

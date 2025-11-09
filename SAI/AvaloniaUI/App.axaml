@@ -5,7 +5,11 @@
     <Application.Styles>
         <FluentTheme />
     </Application.Styles>
+<<<<<<< Updated upstream
+</Application>
+=======
     <Application.Resources>
-        <FontFamily x:Key="DefaultFont">Microsoft Sans Serif, Arial, Segoe UI</FontFamily>
+        <FontFamily x:Key="DefaultFont">Arial</FontFamily>
     </Application.Resources>
 </Application>
+>>>>>>> Stashed changes

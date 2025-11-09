@@ -7,7 +7,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="Mappers\" />
+    <ProjectReference Include="..\Domain\SAI.Domain.csproj" />
   </ItemGroup>
 
 </Project>

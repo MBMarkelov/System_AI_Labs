@@ -6,6 +6,12 @@
 	<Charset>UTF-8</Charset>
     <DefaultItemEncoding>UTF-8</DefaultItemEncoding>
 	<AvaloniaUseCompiledBindingsByDefault>true</AvaloniaUseCompiledBindingsByDefault>
+=======
+	<Charset>UTF-8</Charset>
+	<Utf8Output>true</Utf8Output>
+    <DefaultItemEncoding>UTF-8</DefaultItemEncoding>
+	<AvaloniaUseCompiledBindingsByDefault>true</AvaloniaUseCompiledBindingsByDefault>
+>>>>>>> Stashed changes
   </PropertyGroup>
 
   <ItemGroup>
