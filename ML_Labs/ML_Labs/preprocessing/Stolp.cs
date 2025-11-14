@@ -6,9 +6,9 @@ namespace ML_Labs.preprocessing
 {
     public class StolpSelector
     {
-        private readonly int prototypesPerClass;  // t — сколько эталонов на класс
-        private readonly double outlierThreshold; // d — порог для выбросов
-        private readonly int maxOutliersToRemove; // l — сколько выбросов удалить
+        private readonly int prototypesPerClass;  
+        private readonly double outlierThreshold; 
+        private readonly int maxOutliersToRemove; 
 
         public StolpSelector(int prototypesPerClass = 5, double outlierThreshold = 1.5, int maxOutliersToRemove = 10)
         {
@@ -17,21 +17,15 @@ namespace ML_Labs.preprocessing
             this.maxOutliersToRemove = maxOutliersToRemove;
         }
 
-        /// <summary>
-        /// Отбирает эталоны из обучающей выборки
-        /// </summary>
         public List<(double[] Features, string Label)> SelectPrototypes(
             List<(double[] Features, string Label)> data)
         {
             if (data.Count == 0) return new List<(double[] Features, string Label)>();
 
-            // Шаг 1: Удаляем выбросы
             var cleanData = RemoveOutliers(data);
 
-            // Шаг 2: Инициализация эталонов (по одному на класс с максимальным выступом)
             var prototypes = InitializePrototypes(cleanData);
 
-            // Шаг 3: Итеративный отбор эталонов
             int targetCount = cleanData.Select(d => d.Label).Distinct().Count() * prototypesPerClass;
             while (prototypes.Count < targetCount && prototypes.Count < cleanData.Count)
             {
@@ -44,14 +38,9 @@ namespace ML_Labs.preprocessing
 
                 prototypes.Add(bestCandidate);
             }
-
-            Console.WriteLine($"STOLP: отобрано {prototypes.Count} эталонов из {data.Count} объектов " +
-                              $"(сокращение: {100 - prototypes.Count * 100.0 / data.Count:F1}%)");
-
             return prototypes;
         }
 
-        // Удаление выбросов по порогу риска
         private List<(double[] Features, string Label)> RemoveOutliers(
             List<(double[] Features, string Label)> data)
         {
@@ -72,7 +61,6 @@ namespace ML_Labs.preprocessing
             return clean;
         }
 
-        // Риск выброса: насколько объект "выпадает" из своего класса
         private double OutlierRisk((double[] Features, string Label) point, List<(double[] Features, string Label)> data)
         {
             var sameClass = data.Where(d => d.Label == point.Label && !d.Equals(point)).ToList();
@@ -86,7 +74,6 @@ namespace ML_Labs.preprocessing
             return avgDistToSame / (minDistToOther + 1e-9);
         }
 
-        // Инициализация: по одному эталону на класс (с максимальным выступом)
         private List<(double[] Features, string Label)> InitializePrototypes(
             List<(double[] Features, string Label)> data)
         {
@@ -106,15 +93,13 @@ namespace ML_Labs.preprocessing
             return prototypes;
         }
 
-        // Выступ (protrusion): насколько объект близок к чужому классу
         private double Protrusion((double[] Features, string Label) point, List<(double[] Features, string Label)> data)
         {
             var otherClass = data.Where(d => d.Label != point.Label).ToList();
             if (otherClass.Count == 0) return 0;
-            return -otherClass.Min(p => EuclideanDistance(point.Features, p.Features)); // минус, чтобы максимизировать близость
+            return -otherClass.Min(p => EuclideanDistance(point.Features, p.Features)); 
         }
 
-        // Риск объекта на основе текущих эталонов
         private double CalculateRisk((double[] Features, string Label) point, List<(double[] Features, string Label)> prototypes)
         {
             var distances = prototypes.Select(p => EuclideanDistance(point.Features, p.Features)).ToList();
@@ -135,7 +120,6 @@ namespace ML_Labs.preprocessing
             return nearestSame / (nearestOther + 1e-9);
         }
 
-        // Евклидово расстояние
         private double EuclideanDistance(double[] a, double[] b)
         {
             double sum = 0;

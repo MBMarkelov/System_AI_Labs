@@ -13,8 +13,8 @@ namespace ML_Labs
 
     public class KernelKnnClassifier : IKnnClassifier
     {
-        private readonly int k = 3;
-        private readonly double bandwidth = 1.0; // h
+        private readonly int k = 10;
+        private readonly double bandwidth = 0.7;
         private readonly KernelType kernel = KernelType.Gaussian;
         private readonly List<(double[] Features, string Label)> trainingData = new();
 

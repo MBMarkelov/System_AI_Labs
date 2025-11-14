@@ -29,50 +29,10 @@ namespace ML_Labs
 
         private static string ClassifyStudent(double grade, double absences)
         {
-            if (grade >= 4.5 && absences < 5) return "Отл";
-            if (grade >= 3.5 && absences < 10) return "Хор";
-            if (grade >= 3.0 && absences < 15) return "удовл";
-            return "неуд";
-        }
-
-
-
-        // 2. Метод для сохранения данных в JSON файл
-        public static void SaveToJson(List<(double[] Features, string Label)> data, string filename = "student_data.json")
-        {
-            var students = data.Select((item, index) => new
-            {
-                Id = index + 1,
-                Grade = item.Features[0],
-                Absences = item.Features[1],
-                Category = item.Label
-            }).ToList();
-
-            var options = new JsonSerializerOptions
-            {
-                WriteIndented = true,
-                PropertyNamingPolicy = JsonNamingPolicy.CamelCase
-            };
-
-            string json = JsonSerializer.Serialize(students, options);
-            File.WriteAllText(filename, json);
-
-            Console.WriteLine($"\nДанные сохранены в файл: {filename}");
-            Console.WriteLine($"Сохранено записей: {students.Count}");
-        }
-
-        // Метод для загрузки данных из JSON файла
-        public static List<(double[] Features, string Label)> LoadFromJson(string filename = "student_data.json")
-        {
-            if (!File.Exists(filename))
-            {
-                throw new FileNotFoundException($"Файл {filename} не найден");
-            }
-
-            string json = File.ReadAllText(filename);
-            var students = JsonSerializer.Deserialize<List<StudentRecord>>(json);
-
-            return students.Select(s => (new double[] { s.Grade, s.Absences }, s.Category)).ToList();
+            if (grade >= 4.5 && absences < 5) return "A";
+            if (grade >= 3.5 && absences < 10) return "B";
+            if (grade >= 3.0 && absences < 15) return "C";
+            return "F";
         }
 
         private class StudentRecord

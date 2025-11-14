@@ -1,4 +1,5 @@
-﻿using ML_Labs;
+﻿using KR1_Malckov;
+using ML_Labs;
 using ScottPlot;
 namespace WinFormsApp1
 {
@@ -141,7 +142,6 @@ namespace WinFormsApp1
                         testData = Preset_2.TestData;
                         break;
                     case "Другое...":
-                        // Код для открытия дополнительных опций
                         break;
 
                 }
@@ -161,9 +161,32 @@ namespace WinFormsApp1
 
             var prototypes = stolpKnn.GetPrototypes();
             var predictions = testData.Select(t => stolpKnn.Classify(t.Features)).ToList();
-            
-            KnnDataView.PlotMap(trainingData,testData,predictions,prototypes);
 
+            KnnDataView.PlotMap(trainingData, testData, predictions, prototypes);
+
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            string csvPath = "C:/Users/MB_Markelov_Nout/source/repos/KR1_Malckov/data.csv";
+            if (!File.Exists(csvPath))
+            {
+                MessageBox.Show("Файл data.csv не найден! Поместите его в папку с exe.");
+                return;
+            }
+
+            // 1. Загрузка
+            var (allData, featureNames) = OverdoseDataLoader.Load(csvPath);
+
+            // 2. Разделение
+            var evaluator = new OverdoseKnnEvaluator();
+            var (train, test) = evaluator.SplitData(allData);
+
+            // 3. KNN
+            var (predictions, accuracy) = evaluator.RunKnn(train, test, k: 5);
+
+            // 4. График
+            KnnDataView.PlotOverdoseEvaluation(train, test, predictions, accuracy, featureNames);
         }
     }
 }

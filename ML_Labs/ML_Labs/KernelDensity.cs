@@ -28,7 +28,7 @@ namespace ML_Labs
         }
 
         public (double[,] Density, double MinX, double MaxX, double MinY, double MaxY) GetHeatmap(
-            int width = 100, int height = 80,
+            int width = 200, int height = 200,
             double padding = 0.1)
         {
             double minX = points.Min(p => p[0]);

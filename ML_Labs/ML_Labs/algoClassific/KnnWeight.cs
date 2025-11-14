@@ -25,7 +25,7 @@ namespace ML_Labs
 
         public string Classify(double[] features)
         {
-            if (trainingData.Count == 0) throw new InvalidOperationException("Нет данных для обучения");
+            if (trainingData.Count == 0) throw new InvalidOperationException("No data for train");
 
 
             var neighbors = trainingData
@@ -42,7 +42,7 @@ namespace ML_Labs
                 .Select(g => new
                 {
                     Label = g.Key,
-                    Score = g.Sum(x => 1.0 / (x.Distance + 1e-9)) // вот этот 1е-9 нужен чтобы на 0 случайно не поделить
+                    Score = g.Sum(x => 1.0 / (x.Distance + 1e-9))
                 })
                 .OrderByDescending(g => g.Score)
                 .First();
