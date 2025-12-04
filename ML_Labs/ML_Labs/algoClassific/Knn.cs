@@ -8,64 +8,61 @@ namespace ML_Labs
 {
     public class KnnClassifier : IKnnClassifier
     {
-        private readonly int k = 3;
-        private readonly List<(double[] Features, string Label)> trainingData = new();
-        public KnnClassifier() { }
-        public KnnClassifier(int k)
+        protected readonly int k;
+        protected readonly List<(double[] Features, string Label)> trainingData = new();
+
+        public KnnClassifier(int k = 3)
         {
             if (k <= 0) throw new ArgumentException("k должно быть больше 0", nameof(k));
             this.k = k;
         }
 
-        public void Train(double[] features, string label)
+        public virtual void Train(double[] features, string label)
         {
-            trainingData.Add((features, label));
+            if (features == null) throw new ArgumentNullException(nameof(features));
+            trainingData.Add((features.ToArray(), label));
         }
 
-        public string Classify(double[] features)
+        public virtual string Classify(double[] features)
         {
             if (trainingData.Count == 0) throw new InvalidOperationException("Нет данных для обучения");
 
-
             var neighbors = trainingData
-                .Select(t =>
+                .Select(t => new
                 {
-                    var d = CalculateDistance(features, t.Features);
-                    return new { Distance = d, t.Label };
+                    Distance = EuclideanDistance(features, t.Features),
+                    Label = t.Label
                 })
-                .OrderBy(t => t.Distance)
+                .OrderBy(x => x.Distance)
                 .Take(k);
 
-            var labelScores = neighbors
+            return neighbors
                 .GroupBy(n => n.Label)
                 .OrderByDescending(g => g.Count())
                 .First()
                 .Key;
-
-            return labelScores;
         }
 
-        private static double CalculateDistance(double[] a, double[] b)
+        public virtual double Evaluate(List<(double[] Features, string Label)> testData)
+        {
+            int correct = 0;
+            foreach (var (f, label) in testData)
+            {
+                if (Classify(f) == label) correct++;
+            }
+            return (double)correct / testData.Count;
+        }
+
+        protected static double EuclideanDistance(double[] a, double[] b)
         {
             double sum = 0;
             for (int i = 0; i < a.Length; i++)
             {
-                double diff = a[i] - b[i];
-                sum += diff * diff;
+                double d = a[i] - b[i];
+                sum += d * d;
             }
             return Math.Sqrt(sum);
         }
 
-        public double Evaluate(List<(double[] Features, string Label)> testData)
-        {
-            int correct = 0;
-            foreach (var (features, label) in testData)
-            {
-                var predicted = Classify(features);
-                if (predicted == label) correct++;
-            }
-            return (double)correct / testData.Count;
-        }
     }
-
 }

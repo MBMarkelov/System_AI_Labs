@@ -37,6 +37,10 @@
             DataSelector = new ComboBox();
             density_button = new Button();
             button1 = new Button();
+            dichotomy_button = new Button();
+            golden_selection_button = new Button();
+            coordinate_down_button = new Button();
+            fibonachi_button = new Button();
             SuspendLayout();
             // 
             // knn_button
@@ -138,11 +142,54 @@
             button1.UseVisualStyleBackColor = true;
             button1.Click += button1_Click;
             // 
+            // dichotomy_button
+            // 
+            dichotomy_button.Location = new Point(14, 303);
+            dichotomy_button.Margin = new Padding(3, 4, 3, 4);
+            dichotomy_button.Name = "dichotomy_button";
+            dichotomy_button.Size = new Size(107, 57);
+            dichotomy_button.TabIndex = 7;
+            dichotomy_button.Text = "dichotomy";
+            dichotomy_button.Click += dichotomy_button_Click;
+            // 
+            // golden_selection_button
+            // 
+            golden_selection_button.Location = new Point(342, 303);
+            golden_selection_button.Margin = new Padding(3, 4, 3, 4);
+            golden_selection_button.Name = "golden_selection_button";
+            golden_selection_button.Size = new Size(107, 57);
+            golden_selection_button.TabIndex = 9;
+            golden_selection_button.Text = "golden_selection";
+            // 
+            // coordinate_down_button
+            // 
+            coordinate_down_button.Location = new Point(14, 377);
+            coordinate_down_button.Margin = new Padding(3, 4, 3, 4);
+            coordinate_down_button.Name = "coordinate_down_button";
+            coordinate_down_button.Size = new Size(107, 57);
+            coordinate_down_button.TabIndex = 10;
+            coordinate_down_button.Text = "coordinate_down";
+            coordinate_down_button.Click += coordinate_down_button_Click;
+            // 
+            // fibonachi_button
+            // 
+            fibonachi_button.Location = new Point(152, 303);
+            fibonachi_button.Margin = new Padding(3, 4, 3, 4);
+            fibonachi_button.Name = "fibonachi_button";
+            fibonachi_button.Size = new Size(107, 57);
+            fibonachi_button.TabIndex = 11;
+            fibonachi_button.Text = "fibonachi";
+            fibonachi_button.Click += button2_Click;
+            // 
             // Form1
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(494, 333);
+            ClientSize = new Size(498, 476);
+            Controls.Add(fibonachi_button);
+            Controls.Add(coordinate_down_button);
+            Controls.Add(golden_selection_button);
+            Controls.Add(dichotomy_button);
             Controls.Add(button1);
             Controls.Add(density_button);
             Controls.Add(DataSelector);
@@ -170,5 +217,10 @@
         private ComboBox DataSelector;
         private Button density_button;
         private Button button1;
+        private Button dichotomy_button;
+        private Button button3;
+        private Button golden_selection_button;
+        private Button coordinate_down_button;
+        private Button fibonachi_button;
     }
 }

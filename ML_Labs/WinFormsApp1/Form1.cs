@@ -27,7 +27,7 @@ namespace WinFormsApp1
                 trainingData = StudentDataGenerator.Generate(200);
                 testData = StudentDataGenerator.Generate(50);
             }
-            var knn = new KnnClassifier(k: 3);
+            var knn = new KnnWithNormalization(k: 3);
             foreach (var (features, label) in trainingData)
                 knn.Train(features, label);
             var predictions = testData.Select(t => knn.Classify(t.Features)).ToList();
@@ -79,12 +79,12 @@ namespace WinFormsApp1
                 testData = StudentDataGenerator.Generate(50);
             }
 
-            var knnStolp = new StolpKnn<KnnClassifier>(prototypesPerClass: 4);
+            /*var knnStolp = new StolpKnn<KnnClassifier>(prototypesPerClass: 4);
             knnStolp.Train(trainingData);
             double accuracy = knnStolp.Evaluate(testData);
             var predictions = testData.Select(t => knnStolp.Classify(t.Features)).ToList();
             KnnDataView.PlotStolpResult(trainingData, knnStolp.GetPrototypes());
-            KnnDataView.PlotEvaluation(trainingData, testData, predictions, accuracy);
+            KnnDataView.PlotEvaluation(trainingData, testData, predictions, accuracy); */
         }
 
         private void Stolp_Knn_Core_Button_Click(object sender, EventArgs e)
@@ -187,6 +187,44 @@ namespace WinFormsApp1
 
             // 4. График
             KnnDataView.PlotOverdoseEvaluation(train, test, predictions, accuracy, featureNames);
+        }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+            OptimizationPlotter.PlotFibonacci(
+                function2D: Rosenbrock,
+                fixedPoint: new double[] { 1.0, 0 },   // x₀ = 1.0, x₁ меняется
+                varyIndex: 1,
+                a: -5.0, b: 10.0,
+                title: "Метод Фибоначчи: поиск по x₁ (x₀ = 1.0)"
+            );
+        }
+
+        private void coordinate_down_button_Click(object sender, EventArgs e)
+        {
+            double[] start = { 5, 5 };
+
+            var optimizer = new CoordinateDescentWithPath();
+            var result = optimizer.Run(Rosenbrock, start);
+
+            OptimizationPlotter.PlotCoordinateDescent(Rosenbrock, result);
+        }
+        private double Rosenbrock(double[] x)
+        {
+            double x0 = x[0];
+            double x1 = x[1];
+            return 100 * Math.Pow(x1 - x0 * x0, 2) + Math.Pow(1 - x0, 2);
+        }
+
+        private void dichotomy_button_Click(object sender, EventArgs e)
+        {
+            OptimizationPlotter.PlotDichotomy(
+                function2D: Rosenbrock,
+                fixedPoint: new double[] { 1.0, 1.0 },
+                varyIndex: 0,
+                a: -2.0, b: 4.0,
+                title: "Дихотомия: поиск по x₀ (x₁ = 1.0)"
+            );
         }
     }
 }

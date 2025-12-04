@@ -184,13 +184,13 @@ namespace WinFormsApp1
 
             foreach (var (x, y) in correct)
             {
-                plt.Add.Circle(x, y, 8);
-                plt.Add.Circle(x, y, 6);
+                plt.Add.Circle(x, y, 1);
+                plt.Add.Circle(x, y, 1);
             }
 
             foreach (var (x, y) in incorrect)
             {
-                plt.Add.Circle(x, y, 10);
+                plt.Add.Circle(x, y, 1);
             }
 
             plt.Legend.IsVisible = true;
