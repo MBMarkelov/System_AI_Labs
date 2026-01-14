@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.14.36603.0 d17.14
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ML_Labs", "ML_Labs.csproj", "{39AF00C1-E274-4107-B4A0-46E00625B005}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WinFormsApp1", "..\WinFormsApp1\WinFormsApp1.csproj", "{6443781A-48BE-4542-AF2F-890BDF40B905}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{39AF00C1-E274-4107-B4A0-46E00625B005}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{39AF00C1-E274-4107-B4A0-46E00625B005}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{39AF00C1-E274-4107-B4A0-46E00625B005}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{39AF00C1-E274-4107-B4A0-46E00625B005}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6443781A-48BE-4542-AF2F-890BDF40B905}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6443781A-48BE-4542-AF2F-890BDF40B905}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6443781A-48BE-4542-AF2F-890BDF40B905}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6443781A-48BE-4542-AF2F-890BDF40B905}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {C6BDC6AE-6B51-4D57-8B96-4EA3D1D69AFE}
+	EndGlobalSection
+EndGlobal
